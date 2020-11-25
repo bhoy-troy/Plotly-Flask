@@ -1,0 +1,17 @@
+bundles
+.dockerignore
+db.sqlite3
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+.tox
+.coverage
+.coverage.*
+.cache
+coverage.xml
+*,cover
+*.log
+.git
