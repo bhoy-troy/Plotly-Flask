@@ -17,3 +17,7 @@ dash-renderer = "==1.8.3"
 gunicorn = "==20.0.4"
 pandas = "*"
 python-dotenv = {version = "==0.15.0",  index="pypi"}
+flask-admin = "*"
+#https://github.com/airbrake/pybrake
+pybrake = "*"
+flask-debugtoolbar = "*"

@@ -21,3 +21,13 @@ venv/
 npm-debug.log
 *_tests
 package-lock.json
+bundles
+db.sqlite3
+*.pyd
+.Python
+env
+.tox
+.coverage.*
+.cache
+*,cover
+*.log

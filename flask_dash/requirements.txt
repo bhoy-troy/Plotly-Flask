@@ -4,4 +4,7 @@ dash-html-components ==1.1.1
 dash-renderer==1.8.3
 gunicorn==20.0.4
 python-dotenv==0.15.0
-pandas
+pandas==1.1.5
+pybrake==0.4.6
+flask-debugtoolbar==0.11.0
+

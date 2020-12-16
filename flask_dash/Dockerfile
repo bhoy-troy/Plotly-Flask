@@ -2,7 +2,7 @@ FROM python:3.8
 
 COPY . /app
 WORKDIR /app
-COPY requirements.txt /home/project/dash
+COPY requirements.txt .
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get autoremove && \
