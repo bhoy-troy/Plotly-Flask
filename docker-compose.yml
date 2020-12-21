@@ -2,17 +2,41 @@ version: '3.5'
 
 services:
 
-  flask:
+  flask_dash:
     container_name: flask_dash
     build: ./flask_dash
+    image: jtroy/flask_dash:0.1
     tty: true
     ports:
       - "8000:8000"
+    hostname: flask_dash
+    expose:
+      - 8000
+    networks:
+      dash-net:
+        ipv4_address: 172.20.20.100
 
+
+    extra_hosts:
+      - "flask_dash:172.20.20.100"
+      - "docker_flask_gunicorn_nginx:172.20.20.101"
   nginx:
     container_name: nginx
     build: ./nginx
+    hostname: docker_flask_gunicorn_nginx
     ports:
       - "80:80"
+    networks:
+      dash-net:
+        ipv4_address: 172.20.20.101
+    extra_hosts:
+      - "flask_dash:172.20.20.100"
+      - "docker_flask_gunicorn_nginx:172.20.20.101"
     depends_on:
-      - flask
+      - flask_dash
+
+networks:
+  dash-net:
+    ipam:
+      config:
+        - subnet: 172.20.20.0/24
