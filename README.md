@@ -12,7 +12,7 @@ Basic Dash Web Application,  features use  Plotly, React.js and Flask.
 
 * Option 1 
    
-   
+
     python -m flask_dash.app
      
 * Option 2
@@ -31,12 +31,13 @@ Assumes  Docker and Docker Compose are installed
 
 #### Rebuild
 
-    docker-compose up --build --remove-orphans  --force-recreate  
-    
+    bash runner.sh true   
+     
 ### Preview
 
-[Go to application on localhost http://localhost:8000/](http://localhost:8000/)
+Go to application [Flask](http://172.20.20.100:8000/)
 
+Go to application via [Nginx](http://172.20.20.101)
 
 
 
