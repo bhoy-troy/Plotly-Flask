@@ -1,4 +1,20 @@
 {
   "SECRET_KEY": "local-test-key",
-  "DEBUG": true
+  "DEBUG": true,
+  "cache": {"enabled":  true, "url": "localhost:6379"
+  } ,
+  "dash_settings": {
+    "title": "Assignment 4",
+    "meta_tags": [
+      {
+        "name": "viewport",
+        "content": "width=device-width, initial-scale=1"
+      },
+      {
+        "charset": "utf-8"
+      }
+    ],
+    "plugins": null,
+    "suppress_callback_exceptions": true
+  }
 }
