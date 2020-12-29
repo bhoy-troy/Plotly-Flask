@@ -1,7 +1,6 @@
 FROM python:3.8
 
-MAINTAINER "James Troy"
-
+LABEL maintainer="James Troy"
 COPY . /app
 WORKDIR /app
 
