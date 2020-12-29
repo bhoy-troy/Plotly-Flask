@@ -1,5 +1,7 @@
 FROM python:3.8
 
+MAINTAINER "James Troy"
+
 COPY . /app
 WORKDIR /app
 
