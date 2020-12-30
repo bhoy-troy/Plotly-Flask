@@ -6,11 +6,11 @@ from flask import url_for
 
 from flask_dash.app import app
 
+from flask_dash.index import remote_df
+
 
 def layout():
-    df = pd.read_csv(
-        "https://opendata-geohive.hub.arcgis.com/datasets/d8eb52d56273413b84b0187a4e9117be_0.csv?outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D"
-    )
+    df = remote_df
 
     colors = {"background": "#AAA", "text": "#7FDBFF"}
 
@@ -34,16 +34,16 @@ def layout():
                                     "data": [
                                         {
                                             "x": df["Date"],
-                                            "y": df["TotalConfirmedCovidCases"],
-                                            "type": "bar",
-                                            "name": "Total Confirmed Cases",
-                                        },
-                                        {
-                                            "x": df["Date"],
                                             "y": df["ConfirmedCovidCases"],
                                             "type": "bar",
                                             "name": "Confirmed Cases",
                                         },
+                                        # {
+                                        #     "x": df["Date"],
+                                        #     "y": df["ConfirmedCovidCases"],
+                                        #     "type": "bar",
+                                        #     "name": "Confirmed Cases",
+                                        # },
                                     ],
                                     "layout": {"title": "Total Confirmed Cases"},
                                 },
@@ -69,12 +69,12 @@ def layout():
                                             "type": "bar",
                                             "name": "Total Confirmed Cases",
                                         },
-                                        {
-                                            "x": df["Date"],
-                                            "y": df["ConfirmedCovidCases"],
-                                            "type": "bar",
-                                            "name": "Confirmed Cases",
-                                        },
+                                        # {
+                                        #     "x": df["Date"],
+                                        #     "y": df["ConfirmedCovidCases"],
+                                        #     "type": "bar",
+                                        #     "name": "Confirmed Cases",
+                                        # },
                                     ],
                                     "layout": {"title": "Total Confirmed Cases 2"},
                                 },
@@ -85,7 +85,6 @@ def layout():
             ),
         ]
     )
-
 
 # html.Div(
 # [

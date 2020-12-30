@@ -14,13 +14,16 @@ from dash.dependencies import Input, Output
 from flask import send_from_directory
 
 from flask_dash.app import app
-from flask_dash.apps import dynamic, fixed, home
+from flask_dash.pages import dynamic, fixed, home
 
 logging.basicConfig(filename="local.log", level=logging.DEBUG)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 with open(os.environ.get("CONFIG_FILE", f"{dir_path}/local_config.json"), "r") as f:
     config = json.load(f)
+
+
+
 
 server = flask.Flask(__name__)
 external_stylesheets = []
@@ -35,10 +38,14 @@ app = dash.Dash(__name__, **dash_settings)
 app.config.update(config)
 
 # toolbar = DebugToolbarExtension(app)
-df = pd.read_csv(
+local_df = pd.read_csv(
     "https://opendata-geohive.hub.arcgis.com/datasets/d8eb52d56273413b84b0187a4e9117be_0.csv?outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D"
 )
 
+
+remote_df = pd.read_csv(
+    "https://opendata-geohive.hub.arcgis.com/datasets/d8eb52d56273413b84b0187a4e9117be_0.csv?outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D"
+)
 colors = {"background": "#AAA", "text": "#7FDBFF"}
 
 
