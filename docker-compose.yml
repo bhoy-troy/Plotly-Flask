@@ -47,7 +47,16 @@ services:
     networks:
       dash-net:
         ipv4_address: 172.20.20.110
-
+  datascience-notebook:
+    image: jupyter/datascience-notebook
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    networks:
+      dash-net:
+        ipv4_address: 172.20.20.105
+    ports:
+      - 8888:8888
+    container_name: datascience-notebook
 networks:
   dash-net:
     ipam:
