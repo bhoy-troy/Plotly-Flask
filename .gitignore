@@ -31,3 +31,5 @@ env
 .cache
 *,cover
 *.log
+*.pdf
+notebooks/.ipynb_checkpoints

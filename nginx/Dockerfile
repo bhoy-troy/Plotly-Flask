@@ -1,5 +1,6 @@
 FROM nginx:1.19.5
 
+LABEL maintainer="James Troy"
 
 COPY nginx.conf /etc/nginx/
 
