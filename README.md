@@ -4,29 +4,55 @@
 
 Basic Dash Web Application,  features use  Plotly, React.js and Flask.
 
-Requires Docker and Docker Compose
+## Two options to run the web app
 
+##### Note:
+__Docker is not required to run the flask app__
 
-## How to start?
+### Via Python
 
-#### Docker 
-Via docker-compose
+* Option 1 
+   
+
+    python -m flask_dash.app
+     
+* Option 2
+
+   
+    FLASK_APP=flask_dash/app.py FLASK_ENV=development flask run --port 8080
+    
+### Via Docker    
+
+__This assumes Docker and Docker Compose are installed__
+
+#### How to start?
 
     bash runner.sh
 
+#### Rebuild
 
-#### 
-Via Python
-    
-    python -m flask_dash.app
-    
-    FLASK_APP=flask_dash/app.py FLASK_ENV=development flask run --port 8080
-    
-    
+    bash runner.sh true   
+     
 ### Preview
 
-[Go to application on localhost http://localhost:8000/](http://localhost:8000/)
+##### Plain Python 
+
+Go to application [Flask](http://localhost:8000/)
+
+##### When running Docker containers
+
+Go to application [Flask](http://172.20.20.100:8000/)
+
+Go to application via [Nginx](http://172.20.20.101)
 
 
 
+### Clean Up
 
+    isort .
+    black .
+    
+##### Docker Lint
+
+    docker run --rm -i hadolint/hadolint < flask_dash/Dockerfile
+    docker run --rm -i hadolint/hadolint < nginx/Dockerfile
