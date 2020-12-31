@@ -23,10 +23,6 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 with open(os.environ.get("CONFIG_FILE", f"{dir_path}/local_config.json"), "r") as f:
     config = json.load(f)
 
-# server = Flask(__name__)
-# 
-# app = dash.Dash(name="Flask Dash App", server=server)
-
 
 server = flask.Flask(__name__)
 external_stylesheets = []
@@ -38,112 +34,142 @@ dash_settings["external_stylesheets"] = external_stylesheets
 
 app = dash.Dash(__name__, **dash_settings)
 
-
 # set a 'SECRET_KEY' to enable the Flask session cookies
 app.config.update(config)
-# app.debug = True
-# toolbar = DebugToolbarExtension(app)
+
 
 colors = {"background": "#AAA", "text": "#7FDBFF"}
 
 
-navbar = dbc.NavbarSimple(
-    children=[
-        dbc.NavItem(dbc.NavLink("Home", href="/home")),
-        dbc.NavItem(dbc.NavLink("Fixed", href="/fixed")),
-        dbc.NavItem(dbc.NavLink("Dynamic", href="/dynamic")),
-    ],
-    brand=app.title,
-    brand_href="/",
-    sticky="top",
-)
+# the style arguments for the sidebar. We use position:fixed and a fixed width
+SIDEBAR_STYLE = {
+    "position": "fixed",
+    "top": 0,
+    "left": 0,
+    "bottom": 0,
+    "width": "16rem",
+    "padding": "2rem 1rem",
+    # "backgroundColor": "#f8f9fa",
+}
 
-url_bar_navbar_content = html.Div(
+# the styles for the main content position it to the right of the sidebar and
+# add some padding.
+CONTENT_STYLE = {
+    "marginLeft": "18rem",
+    "marginRight": "2rem",
+    "padding": "2rem 1rem",
+}
+
+sidebar = html.Div(
     [
-        dcc.Location(id="url", refresh=False),
-        html.Div(children=[navbar, html.Div(id="page-content")]),
-    ]
+        html.H2("Dash", className="display-4"),
+        html.Hr(),
+        html.P("Assignment 4", className="lead"),
+        dbc.Nav(
+            [
+                dbc.NavLink("Home", href="/page-1", id="page-1-link"),
+                dbc.NavLink("Static", href="/page-2", id="page-2-link"),
+                dbc.NavLink("Dynamic", href="/page-3", id="page-3-link"),
+            ],
+            vertical=True,
+            pills=True,
+            # color="primary",
+            # dark=True,
+        ),
+    ],
+    style=SIDEBAR_STYLE,
 )
 
+content = html.Div(id="page-content", style=CONTENT_STYLE)
 
+app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 
-# app.layout = html.Div(
-#     style={"backgroundColor": colors["background"]},
+# navbar = dbc.NavbarSimple(
 #     children=[
-#         html.H1(
-#             children="This is a H1 ",
-#             style={"textAlign": "center", "color": colors["text"]},
-#         ),
-#         html.Div(
-#             children="Dash: Sample Flask App",
-#             style={"textAlign": "center", "color": colors["text"]},
-#         ),
-#         dcc.Graph(
-#             id="example-graph-2",
-#             figure={
-#                 "data": [
-#                     {"x": [1, 2, 3], "y": [4, 1, 2], "type": "line", "name": "Fridge"},
-#                     {"x": [1, 2, 3], "y": [2, 4, 5], "type": "line", "name": "Freezer"},
-#                 ],
-#                 "layout": {
-#                     "images": [
-#                         {
-#                             "xref": "paper",
-#                             "yref": "paper",
-#                             "x": 1,
-#                             "y": 1.05,
-#                             "sizex": 0.2,
-#                             "sizey": 0.2,
-#                             "xanchor": "right",
-#                             "yanchor": "bottom",
-#                         }
-#                     ],
-#                     "plot_bgcolor": colors["background"],
-#                     "paper_bgcolor": colors["background"],
-#                     "font": {"color": colors["text"]},
-#                 },
-#             },
-#         ),
+#         dbc.NavItem(dbc.NavLink("Home", href="/home/")),
+#         dbc.NavItem(dbc.NavLink("Static", href="/fixed/")),
+#         dbc.NavItem(dbc.NavLink("Dynamic", href="/dynamic/")),
 #     ],
+#     brand=app.title,
+#     brand_href="/",
+#     sticky="top",
 # )
 
-def serve_layout():
-    if flask.has_request_context():
-        return url_bar_navbar_content
-    return html.Div(
-        [
-            url_bar_navbar_content,
-            home.layout(),
-        ]
-    )
+# url_bar_navbar_content = html.Div(
+#     [
+#         dcc.Location(id="url", refresh=False),
+#         html.Div(children=[navbar, html.Div(id="page-content")]),
+#     ]
+# )
+
+#
+# def serve_layout():
+#     if flask.has_request_context():
+#         return url_bar_navbar_content
+#     return html.Div(
+#         [
+#             url_bar_navbar_content,
+#             home.layout(),
+#         ]
+#     )
+content = html.Div(id="page-content", style=CONTENT_STYLE)
+
+app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
+
+# app.layout = serve_layout
 
 
-app.layout = serve_layout
+@app.callback(
+    [Output(f"page-{i}-link", "active") for i in range(1, 4)],
+    [Input("url", "pathname")],
+)
+def toggle_active_links(pathname):
+    if pathname == "/":
+        # Treat page 1 as the homepage / index
+        return True, False, False
+    return [pathname == f"/page-{i}" for i in range(1, 4)]
+
+
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def display_page(pathname):
 
-    if pathname in ["/", "/home", "/index"]:
+    print(pathname)
+    if pathname in ["/", "/home", "/index", "/page-1"]:
         return home.layout()
-    elif pathname == "/fixed":
+    elif pathname in ["/fixed", "/page-2"]:
         return fixed.layout()
 
-    elif pathname == "/dynamic":
+    elif pathname in ["/dynamic", "/page-3"]:
         return dynamic.layout()
 
     else:
-        return "Error 404"
+        dbc.Jumbotron(
+            [
+                html.H1("404: Not found", className="text-danger"),
+                html.Hr(),
+                html.P(f"The pathname {pathname} was not recognised..."),
+            ]
+        )
 
 
+# todo: Add caching for storing daily data, currently disabled through the configuration
+# the caching can be enabled by using the @cache.cached() decorator
+# cache_enabled = app.config.get("cache", {}).get("enabled", False)
+# if cache_enabled:
+#
+#     CACHE_CONFIG = {
+#         "CACHE_TYPE": "redis",
+#         "CACHE_REDIS_URL": app.config.get("cache", {}).get("url"),
+#     }
+#     cache.init_app(app, config=CACHE_CONFIG)
+# else:
+#     # CACHE_CONFIG = {
+#     #     "DEBUG": True,  # some Flask specific configs
+#     #     "CACHE_TYPE": "simple",  # Flask-Caching related configs
+#     #     "CACHE_DEFAULT_TIMEOUT": 3000
+#     # }
+#     CACHE_CONFIG = {"CACHE_TYPE": "simple"}
 
-cache_enabled = app.config.get("cache", {}).get("enabled", False)
-if cache_enabled:
-    # todo: Add caching for storing daily data
-    CACHE_CONFIG = {
-        "CACHE_TYPE": "redis",
-        "CACHE_REDIS_URL": app.config.get("cache", {}).get("url"),
-    }
-    cache = Cache()
-    cache.init_app(server, config=CACHE_CONFIG)
 
 if __name__ == "__main__":
     app.logger.info("Processing default request")
