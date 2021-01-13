@@ -7,6 +7,6 @@ then
   echo "Rebuild docker containers nginx & flask_dash"
   docker-compose up --build --remove-orphans --abort-on-container-exit
 else
-  echo "starting docker containers nginx & flask_dash"
-  docker-compose up nginx flask_dash redis
+  echo "starting docker containers nginx, flask_dash, redis & jupyter"
+  docker-compose up nginx flask_dash redis jupyter
 fi

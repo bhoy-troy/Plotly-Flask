@@ -1,8 +1,7 @@
 {
   "SECRET_KEY": "local-test-key",
   "DEBUG": true,
-  "cache": {"enabled":  true, "url": "localhost:6379"
-  } ,
+  "cache": {"enabled":  false, "url": "localhost:6379"} ,
   "dash_settings": {
     "title": "Assignment 4",
     "meta_tags": [

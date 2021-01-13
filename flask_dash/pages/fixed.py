@@ -3,8 +3,6 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 from flask import url_for
 
-from flask_dash.app import app
-
 
 def layout():
     return html.Div(
@@ -13,12 +11,16 @@ def layout():
                 className="Row",
                 children=[
                     html.Div(
-                        className="col-lg-12 page-header",
+                        # className="col-lg-12 page-header",
                         children=[
                             html.H3(
                                 className="text-center",
-                                children="Fixed",
-                            )
+                                children="The number of cases by sex on a monthly basis",
+                            ),
+                            html.Img(
+                                className="img-responsive",
+                                src="/assets/images/sex.svg",
+                            ),
                         ],
                     )
                 ],
@@ -26,39 +28,18 @@ def layout():
             html.Div(
                 className="Row",
                 children=[
-                    html.Div(className="col-lg-2"),
                     html.Div(
-                        className="col-lg-8",
                         children=[
-                            html.Div(
-                                className="col-lg-6",
-                                children=[
-                                    html.Img(
-                                        className="img-responsive",
-                                        src="/static/plotly(8).png",
-                                    ),
-                                    html.Img(
-                                        className="img-responsive",
-                                        src="/static/plotly(9).png",
-                                    ),
-                                ],
+                            html.H3(
+                                className="text-center",
+                                children="Graphing the monthly cases ",
                             ),
-                            html.Div(
-                                className="col-lg-6",
-                                children=[
-                                    html.Img(
-                                        className="img-responsive",
-                                        src="/static/plotly(10).png",
-                                    ),
-                                    html.Img(
-                                        className="img-responsive",
-                                        src="/static/plotly(12).png",
-                                    ),
-                                ],
+                            html.Img(
+                                className="img-responsive",
+                                src="/assets/images/monthly_cases.svg",
                             ),
                         ],
-                    ),
-                    html.Div(className="col-lg-2"),
+                    )
                 ],
             ),
         ]
