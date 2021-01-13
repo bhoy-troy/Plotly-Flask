@@ -47,7 +47,18 @@ services:
     networks:
       dash-net:
         ipv4_address: 172.20.20.110
-
+  jupyter:
+    build: ./notebooks
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    networks:
+      dash-net:
+        ipv4_address: 172.20.20.105
+    ports:
+      - 8888:8888
+    expose:
+      - 8888
+    container_name: jupyter-notebook
 networks:
   dash-net:
     ipam:

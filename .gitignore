@@ -33,3 +33,5 @@ env
 *.log
 *.pdf
 notebooks/.ipynb_checkpoints
+redis-data
+redis.conf
