@@ -42,5 +42,22 @@ def layout():
                     )
                 ],
             ),
+            html.Div(
+                className="Row",
+                children=[
+                    html.Div(
+                        children=[
+                            html.H3(
+                                className="text-center",
+                                children="Graphing the monthly cases ",
+                            ),
+                            html.Img(
+                                className="img-responsive",
+                                src="/assets/images/monthly_growth.svg",
+                            ),
+                        ],
+                    )
+                ],
+            ),
         ]
     )

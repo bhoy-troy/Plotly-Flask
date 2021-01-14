@@ -11,13 +11,19 @@ __Docker is not required to run the flask app__
 
 ### Via Python
 
-* Option 1 
+The simplest way is to run the bash file `python_runner.sh`
+
+* Option 1
+
+    ./python_runner.sh
+    
+    
+* Option 2
    
 
     python -m flask_dash.app
      
-* Option 2
-
+* Option 3
    
     FLASK_APP=flask_dash/app.py FLASK_ENV=development flask run --port 8080
     

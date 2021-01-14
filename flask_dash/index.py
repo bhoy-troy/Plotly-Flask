@@ -23,8 +23,6 @@ with open(os.environ.get("CONFIG_FILE", f"{dir_path}/local_config.json"), "r") a
     config = json.load(f)
 
 
-
-
 server = flask.Flask(__name__)
 external_stylesheets = []
 external_stylesheets.append(dbc.themes.BOOTSTRAP)

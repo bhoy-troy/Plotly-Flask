@@ -35,3 +35,5 @@ env
 notebooks/.ipynb_checkpoints
 redis-data
 redis.conf
+*.pdf
+
